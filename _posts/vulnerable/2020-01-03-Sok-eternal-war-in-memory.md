@@ -5,4 +5,5 @@ categories:
   - Summary
 tags:
   - memory currupt
+  - survey
 ---
