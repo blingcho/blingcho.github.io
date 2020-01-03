@@ -5,7 +5,7 @@ highlighter:      rouge
 # Setup
 title:            Bling's
 tagline:          'A Jekyll theme'
-description:      'The <a href="http://hyde.getpoole.com" target="_blank">Hyde</a> theme for <a href="http://jekyllrb.com" target="_blank">Jekyll</a>, refreshed.'
+description:      'This blog is to organize what I've studied'
 url:              https://blingcho.github.io
 baseurl:          ''
                   # the optional subpath of your site, e.g. "/blog"
