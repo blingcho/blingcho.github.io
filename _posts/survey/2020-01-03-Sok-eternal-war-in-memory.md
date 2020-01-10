@@ -4,6 +4,9 @@ title: "SoK: Eternal War in Memory"
 categories:
   - Summary
 tags:
-  - memory currupt
+  - security
   - survey
 ---
+
+# ***SoK: Eternal War in Memory***
+
