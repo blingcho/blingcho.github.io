@@ -37,7 +37,7 @@ memory corruption은 보통 2단계로 구성된다.
 - global pointer가 local variable을 가르킬 때 dangling pointer 될 수 있음(함수가 종료될 때 스택프레임이 사라지게되어  가르키는 object가 미존재)
   
 ---
-* ## **Code corruption attack**
+* ## **Code Corruption Attack**
 
 **Code integrity**
 
@@ -46,7 +46,7 @@ memory corruption은 보통 2단계로 구성된다.
 - 그러나 JIT 상황에서는 어려움(e.g. browser, js, flash, etc..)
 
 ---
-* ## **Control-flow hijack attck**
+* ## **Control-flow Hijack Attack**
 
 **Code pointer integrity**
 - 마찬가지로 memory corruption을 통해 code pointer 부분을 수정 -> control flow 조작 가능
@@ -69,7 +69,7 @@ memory corruption은 보통 2단계로 구성된다.
 
 
 ---
-* ## **Data-only attack**
+* ## **Data-only Attack**
 
 **Data-only attack**
 - 위에 언급한 code나 code pointer를 수정하지 않고 if-statement에 쓰이는 변수를 수정해서 control flow를 조작
@@ -77,6 +77,12 @@ memory corruption은 보통 2단계로 구성된다.
 - Address Space Randomization을 확장하여 Data Space Randomization(모든 데이터 랜덤화)
 
 ---
-* ## **Information leak**
+* ## **Information Leak**
   
 **Information leak**
+- information leak을 통해 randomization 관련 솔루션을 우회 가능
+- 약화시킬 수 있는건 full-data randomization
+
+# Currently Used Protections
+---
+* ## **Memory Corruption**
