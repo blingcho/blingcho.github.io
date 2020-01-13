@@ -10,7 +10,8 @@ tags:
 
 유형별 메모리 공격 기법과 보호 기법 소개 및 정리한 페이퍼. 
 
-
+---
+---
 # Attack
 ---
 ## **Memory Corruption**
@@ -82,7 +83,8 @@ memory corruption은 보통 2단계로 구성된다.
 **Information leak**
 - information leak을 통해 randomization 관련 솔루션을 우회 가능
 - 약화시킬 수 있는건 full-data randomization
-
+---
+---
 # Currently Used Protections
 ---
 ## **Stack smashing protection**
@@ -96,7 +98,8 @@ memory corruption은 보통 2단계로 구성된다.
 
 ## **ASLR**
 - 힙, 스택, 공유 라이브러리, main code segment를 가상주소공간에 mapping
-
+---
+---
 # Approaches and evaluation criteria
 - 확률론적인 방법과 결정론적인 방법으로 나뉨
 - 확률론적인 방법은 ISR, ASLR, DSR 등등
@@ -122,7 +125,8 @@ memory corruption은 보통 2단계로 구성된다.
 1. **Source compatibility** : 수작업으로 소스코드를 수정하지않아도 적용 가능
 2. **Binary compatibility** : unmodified된 binary module이 있어도 상관없음(unmodified binary에 대한 satety를 제공하지 않더라도)
 3. **Modularity support** : 각각의 모듈로 다뤄야한다(이해 잘안감). 
-
+---
+---
 # Probabilistic methods
 ---
 ## **Address Space Randomization**
