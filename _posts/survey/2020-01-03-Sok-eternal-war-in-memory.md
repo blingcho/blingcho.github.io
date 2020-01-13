@@ -81,4 +81,4 @@ memory corruption은 보통 2단계로 구성된다.
 ---
 * ## **Information leak**
   
-**Data-only attack**
+**Information leak**
