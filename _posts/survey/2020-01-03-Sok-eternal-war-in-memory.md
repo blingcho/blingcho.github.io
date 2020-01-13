@@ -12,7 +12,8 @@ tags:
 
 ___
 # Attack
----
+<br>
+
 ## **Memory Corruption**
     
 memory corruption은 보통 2단계로 구성된다.  
@@ -47,6 +48,7 @@ memory corruption은 보통 2단계로 구성된다.
 
 ---
 ## **Control-flow Hijack Attack**
+<br>
 
 **Code pointer integrity**
 - 마찬가지로 memory corruption을 통해 code pointer 부분을 수정 -> control flow 조작 가능
@@ -85,7 +87,8 @@ memory corruption은 보통 2단계로 구성된다.
 
 ___
 # Currently Used Protections
----
+<br>
+
 ## **Stack smashing protection**
 - saved return address 아래에 canary 삽입 후 return 시 체크
 - Control-flow integrity
@@ -127,6 +130,7 @@ ___
    
 ___
 # Probabilistic Methods
+<br>
 
 ## **Address Space Randomization**
 - 계속 나왔던 그 ASLR
@@ -146,5 +150,6 @@ ___
 
 ___
 # Memory Safety
+<br>
 
 ## **Data space randomization**
