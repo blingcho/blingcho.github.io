@@ -10,8 +10,7 @@ tags:
 
 유형별 메모리 공격 기법과 보호 기법 소개 및 정리한 페이퍼. 
 
----
----
+___
 # Attack
 ---
 ## **Memory Corruption**
@@ -83,8 +82,8 @@ memory corruption은 보통 2단계로 구성된다.
 **Information leak**
 - information leak을 통해 randomization 관련 솔루션을 우회 가능
 - 약화시킬 수 있는건 full-data randomization
----
----
+
+___
 # Currently Used Protections
 ---
 ## **Stack smashing protection**
@@ -98,8 +97,8 @@ memory corruption은 보통 2단계로 구성된다.
 
 ## **ASLR**
 - 힙, 스택, 공유 라이브러리, main code segment를 가상주소공간에 mapping
----
----
+
+___
 # Approaches and evaluation criteria
 - 확률론적인 방법과 결정론적인 방법으로 나뉨
 - 확률론적인 방법은 ISR, ASLR, DSR 등등
@@ -125,14 +124,16 @@ memory corruption은 보통 2단계로 구성된다.
 1. **Source compatibility** : 수작업으로 소스코드를 수정하지않아도 적용 가능
 2. **Binary compatibility** : unmodified된 binary module이 있어도 상관없음(unmodified binary에 대한 satety를 제공하지 않더라도)
 3. **Modularity support** : 각각의 모듈로 다뤄야한다(이해 잘안감). 
----
----
+___
 # Probabilistic methods
----
+
 ## **Address Space Randomization**
 - 계속 나왔던 그 ASLR
 - 자료마다 randomly arrange 하는 영역이 다름. 본 논문에서는 code and data 영역이라고 표현하는데, 여기서 data space randomization과 차이점을 모르겠음([ASLR](https://pax.grsecurity.net/docs/aslr.txt), [DSR](http://seclab.cs.sunysb.edu/seclab/pubs/dsr.pdf))
 - 32bit 머신에서는 randomization의 entropy가 낮아서 효과적이지 않음(brute force, de-randomization 공격에 취약)
 - 모두 randomized하더라도 information leak으로 우회할 수도 있음
 - DEP W^X가 있으니까 ASLR의 주된 포인트는 code
-- 
+- ASLR이랑 DSR 중간쯤으로 [PointGuard](https://www.usenix.org/legacy/event/sec03/tech/full_papers/cowan/cowan_html/)이 있고, 해당 논문은 하나의 키만으로 xor encryption을 해서 쉽게 복구가능([링크](https://lirias.kuleuven.be/retrieve/60100))
+  
+---
+## **Data space randomization**
