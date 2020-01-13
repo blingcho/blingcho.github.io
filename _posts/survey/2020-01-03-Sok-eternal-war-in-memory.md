@@ -8,8 +8,6 @@ tags:
   - survey
 ---
 
-# ***SoK: Eternal War in Memory***
-
 유형별 메모리 공격 기법과 보호 기법 소개 및 정리한 페이퍼. 
 
 
