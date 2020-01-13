@@ -165,4 +165,4 @@ ___
 - 이러한 취약점은 기존의 bound checking으로 탐지 불가능
 1. **special allocators** : 한번 할당한 가상메모리를 절대 다시 사용하지 않음으로 해결. 낭비가 심하고 dangling pointer 같은 문제는 해결하지 못함
 2. **object based approaches** : location을 마킹해서 하는 방식. 그러나 valgrind는 dynamic translator라 느리고, AddressSanitizer는 73% 오버헤드 발생. re-allocation된 경우도 탐지 못함.
-3. **pointer based approaches** : pointer에 bounds information 뿐만 아니라 allocation information도 남기면 full-memory safety 가능. 그러나 pointer가 가르키는 object에 대한 bit만 추가해주면 found, update하기 어렵기 때문에 object validity bit는 global dictionary에 저장시켜놓고 이를 사용([CETS](https://repository.upenn.edu/cgi/viewcontent.cgi?article=1744&context=cis_papers))
+3. **pointer based approaches** : pointer에 bounds information 뿐만 아니라 allocation information도 남기면 full-memory safety 가능. 그러나 pointer가 가르키는 object에 대한 bit만 추가해주면 found, update하기 어렵기 때문에 object validity bit는 global dictionary에 저장시켜놓고 이를 사용([CETS](https://repository.upenn.edu/cgi/viewcontent.cgi?article=1744&context=cis_papers)). softbound와 함께 사용하면 116% 오버헤드를 가지고 마찬가지로 binary compatibility 이슈가 있음.
