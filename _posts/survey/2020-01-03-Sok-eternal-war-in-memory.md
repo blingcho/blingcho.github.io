@@ -124,8 +124,9 @@ ___
 1. **Source compatibility** : 수작업으로 소스코드를 수정하지않아도 적용 가능
 2. **Binary compatibility** : unmodified된 binary module이 있어도 상관없음(unmodified binary에 대한 satety를 제공하지 않더라도)
 3. **Modularity support** : 각각의 모듈로 다뤄야한다(이해 잘안감). 
+   
 ___
-# Probabilistic methods
+# Probabilistic Methods
 
 ## **Address Space Randomization**
 - 계속 나왔던 그 ASLR
@@ -136,4 +137,14 @@ ___
 - ASLR이랑 DSR 중간쯤으로 [PointGuard](https://www.usenix.org/legacy/event/sec03/tech/full_papers/cowan/cowan_html/)이 있고, 해당 논문은 하나의 키만으로 xor encryption을 해서 쉽게 복구가능([링크](https://lirias.kuleuven.be/retrieve/60100))
   
 ---
+## **Data space randomization**
+- ASR처럼 location을 randomization하는게 아니라 representation을 랜덤화
+- 같은 "points-to" sets에 포함되는 variables는 같은 키 사용
+- 평균적으로 15%의 오버헤드
+- binary compatibility X
+- 전체적으로 points-to analysis가 필요하기 때문에 modularity X. 이를 해결하기 위해 부분적인 points-to analysis를 제안
+
+___
+# Memory Safety
+
 ## **Data space randomization**
