@@ -95,8 +95,7 @@ memory corruption은 보통 2단계로 구성된다.
 - code reuse attack에는 취약(e.g. ROP)
 
 ## **ASLR**
-- 힙, 스택, 공유 라이브러리를 가상주소공간에 mapping
-- 코드영역 주소는 알 수 있음
+- 힙, 스택, 공유 라이브러리, main code segment를 가상주소공간에 mapping
 
 # Approaches and evaluation criteria
 - 확률론적인 방법과 결정론적인 방법으로 나뉨
@@ -125,4 +124,11 @@ memory corruption은 보통 2단계로 구성된다.
 3. **Modularity support** : 각각의 모듈로 다뤄야한다(이해 잘안감). 
 
 # Probabilistic methods
+---
+## **Address Space Randomization**
+- 계속 나왔던 그 ASLR
+- 자료마다 randomly arrange 하는 영역이 다름. 본 논문에서는 code and data 영역이라고 표현하는데, 여기서 data space randomization과 차이점을 모르겠음([ASLR](https://pax.grsecurity.net/docs/aslr.txt), [DSR](http://seclab.cs.sunysb.edu/seclab/pubs/dsr.pdf))
+- 32bit 머신에서는 randomization의 entropy가 낮아서 효과적이지 않음(brute force, de-randomization 공격에 취약)
+- 모두 randomized하더라도 information leak으로 우회할 수도 있음
+- DEP W^X가 있으니까 ASLR의 주된 포인트는 code
 - 
