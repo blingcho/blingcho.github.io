@@ -76,4 +76,9 @@ memory corruption은 보통 2단계로 구성된다.
 **Data-only attack**
 - 위에 언급한 code나 code pointer를 수정하지 않고 if-statement에 쓰이는 변수를 수정해서 control flow를 조작
 - Code integrity, Code pointer integrity 뿐만 아니라 이런 변수에 관한 integrity까지 합쳐 data integrity라고 표현
-- Address Space Randomization을 확장하여 Data Space Randomization
+- Address Space Randomization을 확장하여 Data Space Randomization(모든 데이터 랜덤화)
+
+---
+* ## **Information leak**
+  
+**Data-only attack**
