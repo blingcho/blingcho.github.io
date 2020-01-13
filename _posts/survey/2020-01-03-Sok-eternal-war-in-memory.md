@@ -13,7 +13,7 @@ tags:
 
 # Attack
 ---
-* ## **Memory Corruption**
+## **Memory Corruption**
     
 memory corruption은 보통 2단계로 구성된다.  
 
@@ -37,7 +37,7 @@ memory corruption은 보통 2단계로 구성된다.
 - global pointer가 local variable을 가르킬 때 dangling pointer 될 수 있음(함수가 종료될 때 스택프레임이 사라지게되어  가르키는 object가 미존재)
   
 ---
-* ## **Code Corruption Attack**
+## **Code Corruption Attack**
 
 **Code integrity**
 
@@ -46,7 +46,7 @@ memory corruption은 보통 2단계로 구성된다.
 - 그러나 JIT 상황에서는 어려움(e.g. browser, js, flash, etc..)
 
 ---
-* ## **Control-flow Hijack Attack**
+## **Control-flow Hijack Attack**
 
 **Code pointer integrity**
 - 마찬가지로 memory corruption을 통해 code pointer 부분을 수정 -> control flow 조작 가능
@@ -69,7 +69,7 @@ memory corruption은 보통 2단계로 구성된다.
 
 
 ---
-* ## **Data-only Attack**
+## **Data-only Attack**
 
 **Data-only attack**
 - 위에 언급한 code나 code pointer를 수정하지 않고 if-statement에 쓰이는 변수를 수정해서 control flow를 조작
@@ -77,7 +77,7 @@ memory corruption은 보통 2단계로 구성된다.
 - Address Space Randomization을 확장하여 Data Space Randomization(모든 데이터 랜덤화)
 
 ---
-* ## **Information Leak**
+## **Information Leak**
   
 **Information leak**
 - information leak을 통해 randomization 관련 솔루션을 우회 가능
@@ -85,4 +85,44 @@ memory corruption은 보통 2단계로 구성된다.
 
 # Currently Used Protections
 ---
-* ## **Memory Corruption**
+## **Stack smashing protection**
+- saved return address 아래에 canary 삽입 후 return 시 체크
+- Control-flow integrity
+- SafeSEH, SEHOP, etc
+  
+## **DEP W^X**
+- Execution과 Write 중 하나만 가능
+- code reuse attack에는 취약(e.g. ROP)
+
+## **ASLR**
+- 힙, 스택, 공유 라이브러리를 가상주소공간에 mapping
+- 코드영역 주소는 알 수 있음
+
+# Approaches and evaluation criteria
+- 확률론적인 방법과 결정론적인 방법으로 나뉨
+- 확률론적인 방법은 ISR, ASLR, DSR 등등
+- 결정론적인 방법은 그 외 대부분, reference monitor
+- dynamic 또는 static하게 instrumentation함
+- dynamic은 unsafe한 바이너리를 대상으로 할 수 있고 느린 대신, static은 소스코드가 필요하고 빠르다
+- 간단한 reference monitor 종류는 낮은 오버헤드로 구현가능([taint checking](http://www.icode-project.eu/media/page-media/7/minemu-raid11.pdf), [ROP detector](https://www.researchgate.net/profile/Marcel_Winandy/publication/221609042_ROPdefender_A_detection_tool_to_defend_against_return-oriented_programming_attacks/links/0fcfd50d09cae46eb2000000/ROPdefender-A-detection-tool-to-defend-against-return-oriented-programming-attacks.pdf))
+
+
+---
+## **Protection**
+1. **Enforce policy** : 사용하는 정책이 효과적인 지?
+2. **False negatives** : 미탐지는 없는지?
+3. **False positives** : 오탐지는 없는지?
+
+---
+## **Cost**
+1. **Performance overhead** : CPU-bound/IO-bound 특히 CPU-bound에 대한 performance overhead가 적어야함 통상 10% 정도가 deploy됨
+2. **Memory overhead** : inline monitor 같은 경우가 memory overhead 발생, performance overhead보다는 이쪽 오버헤드가 나음
+
+---
+## **Compatibiliry**
+1. **Source compatibility** : 수작업으로 소스코드를 수정하지않아도 적용 가능
+2. **Binary compatibility** : unmodified된 binary module이 있어도 상관없음(unmodified binary에 대한 satety를 제공하지 않더라도)
+3. **Modularity support** : 각각의 모듈로 다뤄야한다(이해 잘안감). 
+
+# Probabilistic methods
+- 
