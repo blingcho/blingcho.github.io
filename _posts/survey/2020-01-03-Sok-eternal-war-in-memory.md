@@ -37,7 +37,6 @@ memory corruption은 보통 2단계로 구성된다.
 - 따라서 대부분 heap allocated object 대상
 - global pointer가 local variable을 가르킬 때 dangling pointer 될 수 있음(함수가 종료될 때 스택프레임이 사라지게되어  가르키는 object가 미존재)
   
----
 ## **Code Corruption Attack**
 
 **Code integrity**
@@ -46,7 +45,6 @@ memory corruption은 보통 2단계로 구성된다.
 - 이에 대한 integrity를 보장하기위해 현대 프로세서는 read-only memory 지원됨.
 - 그러나 JIT 상황에서는 어려움(e.g. browser, js, flash, etc..)
 
----
 ## **Control-flow Hijack Attack**
 <br>
 
@@ -70,7 +68,6 @@ memory corruption은 보통 2단계로 구성된다.
 - 상위 정책 관련 논문 [SFI](http://users.ece.cmu.edu/~adrian/630-f03/readings/sfi.pdf), [XFI](https://www.usenix.org/legacy/event/osdi06/tech/full_papers/erlingsson/erlingsson.pdf), [Native Client](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5207638)
 
 
----
 ## **Data-only Attack**
 
 **Data-only attack**
@@ -78,7 +75,6 @@ memory corruption은 보통 2단계로 구성된다.
 - Code integrity, Code pointer integrity 뿐만 아니라 이런 변수에 관한 integrity까지 합쳐 data integrity라고 표현
 - Address Space Randomization을 확장하여 Data Space Randomization(모든 데이터 랜덤화)
 
----
 ## **Information Leak**
   
 **Information leak**
@@ -111,18 +107,15 @@ ___
 - 간단한 reference monitor 종류는 낮은 오버헤드로 구현가능([taint checking](http://www.icode-project.eu/media/page-media/7/minemu-raid11.pdf), [ROP detector](https://www.researchgate.net/profile/Marcel_Winandy/publication/221609042_ROPdefender_A_detection_tool_to_defend_against_return-oriented_programming_attacks/links/0fcfd50d09cae46eb2000000/ROPdefender-A-detection-tool-to-defend-against-return-oriented-programming-attacks.pdf))
 
 
----
 ## **Protection**
 1. **Enforce policy** : 사용하는 정책이 효과적인 지?
 2. **False negatives** : 미탐지는 없는지?
 3. **False positives** : 오탐지는 없는지?
 
----
 ## **Cost**
 1. **Performance overhead** : CPU-bound/IO-bound 특히 CPU-bound에 대한 performance overhead가 적어야함 통상 10% 정도가 deploy됨
 2. **Memory overhead** : inline monitor 같은 경우가 memory overhead 발생, performance overhead보다는 이쪽 오버헤드가 나음
 
----
 ## **Compatibiliry**
 1. **Source compatibility** : 수작업으로 소스코드를 수정하지않아도 적용 가능
 2. **Binary compatibility** : unmodified된 binary module이 있어도 상관없음(unmodified binary에 대한 satety를 제공하지 않더라도)
@@ -139,8 +132,7 @@ ___
 - 모두 randomized하더라도 information leak으로 우회할 수도 있음
 - DEP W^X가 있으니까 ASLR의 주된 포인트는 code
 - ASLR이랑 DSR 중간쯤으로 [PointGuard](https://www.usenix.org/legacy/event/sec03/tech/full_papers/cowan/cowan_html/)이 있고, 해당 논문은 하나의 키만으로 xor encryption을 해서 쉽게 복구가능([링크](https://lirias.kuleuven.be/retrieve/60100))
-  
----
+
 ## **Data space randomization**
 - ASR처럼 location을 randomization하는게 아니라 representation을 랜덤화
 - 같은 "points-to" sets에 포함되는 variables는 같은 키 사용
@@ -150,6 +142,7 @@ ___
 
 ___
 # Memory Safety
+- 
 <br>
 
 ## **Data space randomization**
