@@ -142,7 +142,27 @@ ___
 
 ___
 # Memory Safety
-- 
 <br>
 
-## **Data space randomization**
+## **Spatial safety with pointer bounds**
+- spatial memory safety를 위해서는 pointer bounds를 추적해야함
+- [Softbound](https://repository.upenn.edu/cgi/viewcontent.cgi?article=1941&context=cis_reports)는 metadata를 pointer와 떨어뜨려 compatibility를 해결(이전에는 소스코드 annotation을 통해 pointer structure가 metadata를 가지게 하는 방법이 제안되었음/큰 소스코드에 부적합)
+- 이 방법은 모든 모듈이 적용될 경우 FP, FN 모두 제로
+- 그러나 평균적으로 오버헤드가 67%로 매우 느림
+- 그리고 unprotected library와는 제한된 compatibility 제공(metadata update가 안되서 FP 발생)
+
+## **Spatial safety with object bounds**
+- pointer에 metadata를 연결하는게 아닌 object에 연관지음
+- 할당된 메모리의 영역을 아는 것 만으로는 불충분 -> 포인터가 다른 오브젝트를 가르키고있어도 모름
+- 역참조되지 않으면 out-of-bound 가능
+- 해당 방법으로 접근한 논문 [CRED](http://www.cs.cmu.edu/afs/cs.cmu.edu/Web/People/oor/papers/cred.pdf)
+- 구조체 내의 포인터에 대한 탐지 불가능
+- CRED 오버헤드는 2x, a static points-to analysis로 1.2x까지 낮춤([automatic pool allocation](http://www.cs.cmu.edu/afs/cs/academic/class/15745-s06/web/handouts/lattner-pldi05.pdf))
+- 현재 가장 빠른 방식은 [Baggy Bounds Checking](https://www.usenix.org/legacy/event/sec09/tech/full_papers/sec09_memory.pdf), 60%의 오버헤드
+
+## **Temporal safety**
+- spatial safety 외에 uaf, double free 같은 취약점도 존재.
+- 이러한 취약점은 기존의 bound checking으로 탐지 불가능
+1. **special allocators** : 한번 할당한 가상메모리를 절대 다시 사용하지 않음으로 해결. 낭비가 심하고 dangling pointer 같은 문제는 해결하지 못함
+2. **object based approaches** : location을 마킹해서 하는 방식. 그러나 valgrind는 dynamic translator라 느리고, AddressSanitizer는 73% 오버헤드 발생. re-allocation된 경우도 탐지 못함.
+3. **pointer based approaches** : pointer에 bounds information 뿐만 아니라 allocation information도 남기면 full-memory safety 가능. 그러나 pointer가 가르키는 object에 대한 bit만 추가해주면 found, update하기 어렵기 때문에 object validity bit는 global dictionary에 저장시켜놓고 이를 사용([CETS](https://repository.upenn.edu/cgi/viewcontent.cgi?article=1744&context=cis_papers))
