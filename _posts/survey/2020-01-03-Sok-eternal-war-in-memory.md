@@ -166,3 +166,32 @@ ___
 1. **special allocators** : 한번 할당한 가상메모리를 절대 다시 사용하지 않음으로 해결. 낭비가 심하고 dangling pointer 같은 문제는 해결하지 못함
 2. **object based approaches** : location을 마킹해서 하는 방식. 그러나 valgrind는 dynamic translator라 느리고, AddressSanitizer는 73% 오버헤드 발생. re-allocation된 경우도 탐지 못함.
 3. **pointer based approaches** : pointer에 bounds information 뿐만 아니라 allocation information도 남기면 full-memory safety 가능. 그러나 pointer가 가르키는 object에 대한 bit만 추가해주면 found, update하기 어렵기 때문에 object validity bit는 global dictionary에 저장시켜놓고 이를 사용([CETS](https://repository.upenn.edu/cgi/viewcontent.cgi?article=1744&context=cis_papers)). softbound와 함께 사용하면 116% 오버헤드를 가지고 마찬가지로 binary compatibility 이슈가 있음.
+
+___
+# Generic Attack Defenses
+<br>
+
+## **Data integrity**
+1. **safe objects** : static pointer analysis를 통해 unsafe한 오브젝트를 찾음(계산되어서 참조하는 값). unsafe object(unsafe pointer의 points-to sets)를 부를때 각 바이트를 마크하고 instrument함([이해안됨](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.65.1702&rep=rep1&type=pdf)/unsafe or not만 구분해서 마크한다는 의미로 추정됨). 오버헤드는 50%~100%정도이다.
+2. **points-to sets** : points-to set마다 각자의 마크(식별ID/여러집합/같은 집합 안에서는 취약할 수 있음)를 shadow memory에 저장([WIT](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4531158)). 특정 포인터는 point analysis를 통해 dereference 할 수 있는 points-to set '만' dereference 가능. 오버헤드는 525%정도이고 binary compatible을 만족하지 못한다.<br> safe object에서 언급된 방식에서 해결못한 read를 통한 control hijack을 해결하기 위해 indirect call과 관련된 points-to set도 생성.
+
+## **Data-flow integrity**
+- [Data-flow integrity](https://static.usenix.org/event/osdi06/tech/full_papers/castro/castro.pdf)
+- 마지막 write instruction이 올바른지 read 시 체크
+- write instruction마다 ID를 가지고 있고 정적으로 허용될 수 있는 ID를 미리 계산
+- write를 체크하지 않기 때문에 metadata를 손상시킬 수 있음(의도적으로 오류를 발생시킬 수 있다?)
+- 오버헤드는 50~100% 정도
+
+___
+# Control-Flow Hijack Defenses
+<br>
+
+
+## **Code pointer integrity**
+- GOT, VT에 있는 포인터는 read-only로 보호할 수 있지만, 그 외에는 writable 해야됨(SRA, function pointer 등등)
+- code pointer의 integrity를 보장하여도 control-flow hijack 가능
+- e.g. UAF, dangling pointer 등등
+
+## **Control-flow integrity**
+1. **Dynamic return integrity** : SSP(Canary value), Shadow stack과 같이 saved return address에 대한 integrity. [shadow stack](https://static.usenix.org/event/osdi06/tech/full_papers/castro/castro.pdf) 같은 경우 saved return address를 shadow stack에 push하고 retunr시 program stack과 비교. <br>두 stack을 overwriting하면 취약해서 shadow stack을 보호하기 위해 guard pages, switching write permission 사용한 접근법도 있음([RAD](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=918971)). SSP의 경우 오버헤드가 1%보다 작고, shadow stack의 경우 unprotected의 오버헤드는 5%, 그러나 protected는 10x배 느려짐.
+2. **Static control-flow graph integrity** : static하게 미리 control-flow graph를 만듬. WIT와 다르게 ID를 포인터 옆에 저장. jumping하기 전에 체크. runtime에서는 return address가 하나지만 이 방법에서는 여러개가 가능함. 
