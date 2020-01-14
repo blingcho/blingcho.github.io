@@ -37,14 +37,15 @@ memory corruption은 보통 2단계로 구성된다.
 - 따라서 대부분 heap allocated object 대상
 - global pointer가 local variable을 가르킬 때 dangling pointer 될 수 있음(함수가 종료될 때 스택프레임이 사라지게되어  가르키는 object가 미존재)
   
-### **Code Corruption Attack**
+---
+### **Code Corruption Attack**<br>
 
 **Code integrity**
 
 - Memory corruption을 이용해서 code를 overwrite 가능
 - 이에 대한 integrity를 보장하기위해 현대 프로세서는 read-only memory 지원됨.
 - 그러나 JIT 상황에서는 어려움(e.g. browser, js, flash, etc..)
-
+---
 ### **Control-flow Hijack Attack**
 <br>
 
@@ -67,15 +68,16 @@ memory corruption은 보통 2단계로 구성된다.
 - 그럼에도 불구하고 어려워질뿐 막아지는건 아님
 - 상위 정책 관련 논문 [SFI](http://users.ece.cmu.edu/~adrian/630-f03/readings/sfi.pdf), [XFI](https://www.usenix.org/legacy/event/osdi06/tech/full_papers/erlingsson/erlingsson.pdf), [Native Client](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5207638)
 
-
-### **Data-only Attack**
+---
+### **Data-only Attack**<br>
 
 **Data-only attack**
 - 위에 언급한 code나 code pointer를 수정하지 않고 if-statement에 쓰이는 변수를 수정해서 control flow를 조작
 - Code integrity, Code pointer integrity 뿐만 아니라 이런 변수에 관한 integrity까지 합쳐 data integrity라고 표현
 - Address Space Randomization을 확장하여 Data Space Randomization
 
-### **Information Leak**
+---
+### **Information Leak**<br>
   
 **Information leak**
 - information leak을 통해 randomization 관련 솔루션을 우회 가능
@@ -107,7 +109,7 @@ ___
 - 간단한 reference monitor 종류는 낮은 오버헤드로 구현가능([taint checking](http://www.icode-project.eu/media/page-media/7/minemu-raid11.pdf), [ROP detector](https://www.researchgate.net/profile/Marcel_Winandy/publication/221609042_ROPdefender_A_detection_tool_to_defend_against_return-oriented_programming_attacks/links/0fcfd50d09cae46eb2000000/ROPdefender-A-detection-tool-to-defend-against-return-oriented-programming-attacks.pdf))
 
 
-### **Protection**
+### **Protection criteria**
 1. **Enforce policy** : 사용하는 정책이 효과적인 지?
 2. **False negatives** : 미탐지는 없는지?
 3. **False positives** : 오탐지는 없는지?
