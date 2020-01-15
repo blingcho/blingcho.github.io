@@ -63,7 +63,8 @@ ___
 - read/write할때마다 xor 연산을 하게되므로 overhead가 클거라고 예상됨
 - 본 논문에서는 memory region을 나눠서 simple local variable(non-overflow candidates)를 떨어뜨려놓고 xor 연산을 하지않는 방식으로 optimization을 진행
 - 실제로는 평균 15%의 overhead
-### **source transformation **
+
+### **Source transformation**
 - 논문에서도 mismatch가 발생할 수 있고(CIL을 사용하여 하나로 merge한 후 transformation을 진행하였다고 서술), 해당 부분을 manually 수정해야된다고 함
 - 컴파일러로 구현은 불가능한가?
 
