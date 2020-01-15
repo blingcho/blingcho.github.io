@@ -18,7 +18,9 @@ ___
 - memory corruption을 막기위해 다양한 randomization 기술들이 등장하지만 각각 한계가 존재
 - ASLR은 informaiton leak을 통해 randomization된 layout구조를 알 수 있음
 - 또한 2^32bit machine에서는 entropy가 낮음
+  
 ___
+
 # Idea
 <br>
 
