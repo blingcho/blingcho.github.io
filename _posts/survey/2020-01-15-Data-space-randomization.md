@@ -2,7 +2,7 @@
 layout: post
 title: "Data Space Randomization"
 categories:
-  - Summary
+  - Memory Corruption
 tags:
   - security
   - survey

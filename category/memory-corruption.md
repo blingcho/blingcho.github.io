@@ -1,6 +1,6 @@
 ---
 layout: category
-title: Summary
+title: Memory Corruption
 ---
 
 Summaries of my studies

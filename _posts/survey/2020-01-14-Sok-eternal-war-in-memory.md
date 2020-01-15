@@ -2,7 +2,7 @@
 layout: post
 title: "SoK: Eternal War in Memory"
 categories:
-  - Summary
+  - Memory Corruption
 tags:
   - security
   - survey
