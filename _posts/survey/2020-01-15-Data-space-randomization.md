@@ -45,6 +45,7 @@ ptr = (&y) ^ (m_ptr);
 ...
 L1: z = ((*ptr) ^ (m_ptr)) ^ m_z;
 ~~~
+
 - 즉 read, write를 할때마다 random variable을 masking(encryption, decryption)함
 
 ___
