@@ -77,8 +77,9 @@ ___
 - 특정 몇몇 작업은 개발자가 antifuzz 코드를 특정 코드에 삽입시켜주는 방식(개발자가 보호할 코드들을 설정해야함/e.g. solution #3, #4)
 
 **2. 바이너리에 constraints 알 수 있음**
-- 실제 바이너리에는 constraints가 있기 때문에 공격자가 이를 확인하여 임의로 시드 파일에 해당 input을 넣어줄 수 있음
-  
+
+~~- 실제 바이너리에는 constraints가 있기 때문에 공격자가 이를 확인하여 임의로 시드 파일에 해당 input을 넣어줄 수 있음~~
+- hash comparison을 사용해서 바이너리에는 hash value를 기록함.  
 
 **3. Control-flow corruption**
 - 뇌피셜이지만 signal intercept를 통해 그냥 exit, err 발생시 복잡한 연산을 한다는 것 자체가 프로그램의 semantic을 손상시키는 것 같음
