@@ -65,3 +65,8 @@ ___
 **1. Manual modifying**
 - anti-fuzz와 다르게 manually하게 코드를 수정하는 작업은 없지만, developer가 직접 어떤 line에 삽입할지 line number를 입력해야 함
   
+**2. Detect ROP Gadget**
+- 특정 갯수 이하의 instruction을 실행하는 경우를 detect할수있지 않을까?
+
+**3. Instrumentation**
+- Instrumentation코드가 함수 에필로그에 추가가 안된다면 rot gadget을 실행시키는 의미가 있을까?
