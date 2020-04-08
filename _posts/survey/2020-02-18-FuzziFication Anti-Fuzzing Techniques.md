@@ -45,6 +45,7 @@ ret
 **3. AntiHybrid**
 - data-flow dependencies를 implicit하게 transform
 - implicit이란 copy 같은 경우 비트 단위로 쪼개서 copy하는 것을 의미하는 것으로 보임
+
 ~~~c
  ---explicit---
  int a = b;
@@ -54,8 +55,8 @@ ret
  for(int i = 0 ; i < integer_bit_size ; i++){
    a = (b) & (0x1 << i);
  }
-
 ~~~
+
 - compare instruction의 operand를 hash 값으로 변환하여 역연산 불가능하게 함
 
 ___
