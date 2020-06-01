@@ -1,6 +1,6 @@
 ---
 layout: category
-title: Machine Learning
+title: Study
 ---
 
 Summaries of my studies
