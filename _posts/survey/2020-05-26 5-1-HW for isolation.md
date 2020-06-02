@@ -82,3 +82,7 @@ tags:
 ### Reference Monitor
  - TCB가 monitoring함
  - privilege가 높아야하고, 따라서 최대한 작아야한다
+
+### TEE system architecture for isolation
+ - SW-based TEEs : OS kernel, Hypervisor, Nested Kernel
+ - HW-based TEEs : Trusted Platform Module, ARM TrustZone, Intel SGX
