@@ -42,7 +42,7 @@ tags:
  - 페이지 테이블은 OS or high privilieg SW에서 관리
 
 ### In-process isolation
- - Goal : prevent attack on a piceco of a process from corrupting the entire process
+ - Goal : prevent attack on a piece of a process from corrupting the entire process
  - Solution : address space를 나눈다
 
 ### Separate privilies
@@ -54,4 +54,52 @@ tags:
 
 ### Splitting a process
  - 하나의 프로세스를 여러개의 프로세스로 쪼갬(inter-process 처럼)
- - 
+ - split할때마다 오버헤드 증가
+ - Privtrans : monitor를 만들고 필요할때마다 fork해서 slave(submodule)를 만들고 여기서 작업을 처리
+
+### Software Fault Isoliation(SFI)
+ - load, store, jump에 대하여 guard를 붙인다(instrument)
+ - 같은 주소공간에서 동작하는 multiple code segments로 나눈다
+
+### Adding guards
+ - segment 안에서만 jump, load, store 가능하게
+~~~
+r12 <- [r11]
+dr1 <- r11 & segment-mask
+dr1 <- dr1 | dr2
+r12 <- [dr1]
+~~~
+
+### Bypassing guard
+~~~as
+0xa0 : r10 <- 0xcc
+0xa4 : jmp r10
+   ...
+0xc0 : dr1 <- r11 & segment-mask
+0xc8 : dr1 <- dr1 | dr2
+0xcc : r12 <- [dr1]
+~~~
+
+### Aligned jump
+~~~as
+0xa0 : r10 <- 0xcc
+0xa4 : and r10, #0xf0
+0xa8 : jmp r10
+
+0xc0 : dr1 <- r11 & segment-mask
+0xc8 : dr1 <- dr1 | dr2
+0xcc : r12 <- [dr1]
+~~~
+
+### MMU for in-process isolation
+ - SFI는 compile과정이 필요
+ - code segment마다 PT permission을 다르게 할당
+ - 해당 code segement를 사용할때 알맞는 page table을 loading해서 사용
+ - 단점 : OS가 PT를 바꾸기 위해 intervention이 많음, page단위에 맞게 align해야해서 memory를 더 쓴다
+
+### Isolation in tiny devices
+ - MPU 사용
+ - MPU(Memory Protection Unit)를 통해 8/16개로 영역을 나눔
+
+### Process isolation with MPU
+ - 실행되는 영역에 따라 MPU permission이 바뀜
